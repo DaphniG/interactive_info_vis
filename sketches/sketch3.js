@@ -102,7 +102,6 @@ registerSketch('sk3', function (p) {
     p.textSize(14);
     p.text(subjects[p.hour() % 12], 0, 15);
 
-    // subtle shadow
     p.noStroke();
     p.fill(0, 0, 0, 20);
     p.rect(2, 2, 160, 90, 12);
