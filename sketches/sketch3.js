@@ -47,6 +47,29 @@ registerSketch('sk3', function (p) {
         p.line(x1, y1, x2, y2);
       }
     }
+    // compute hour & minute values
+    let h = p.hour() % 12 + p.minute() / 60;
+    let m = p.minute() + p.second() / 60;
+
+    let hourAngle = p.map(h, 0, 12, 0, 360) - 90;
+    let minuteAngle = p.map(m, 0, 60, 0, 360) - 90;
+    let cardAngle = p.map(secondsIntoCard, 0, 60, 0, 360) - 90;
+
+    // hour hand
+    p.stroke(70, 50, 30);
+    p.strokeWeight(6);
+    p.line(0, 0, p.cos(hourAngle) * 100, p.sin(hourAngle) * 100);
+
+    // minute hand
+    p.stroke(50, 50, 100);
+    p.strokeWeight(4);
+    p.line(0, 0, p.cos(minuteAngle) * 160, p.sin(minuteAngle) * 160);
+
+    // card progress (seconds) hand
+    p.stroke(alert ? p.color(255, 50, 50) : p.color(100, 70, 40));
+    p.strokeWeight(3);
+    p.line(0, 0, p.cos(cardAngle) * 140, p.sin(cardAngle) * 140);
+
   };
 
   p.windowResized = function () { p.resizeCanvas(p.windowWidth, p.windowHeight); };
