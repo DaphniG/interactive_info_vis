@@ -20,6 +20,12 @@ registerSketch('sk4', function (p) {
       lastMinute = m;
       flowers.push({ x: p.random(p.width), y: p.random(p.height) });
     }
+
+    // Draw flowers (simple circles for now)
+    for (let f of flowers) {
+      p.fill(255, 200, 200); // temporary pink
+      p.ellipse(f.x, f.y, 20, 20);
+    }
   };
 
   p.windowResized = function () {
