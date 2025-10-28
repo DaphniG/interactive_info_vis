@@ -1,4 +1,4 @@
-// Step 2: Add timer and 10-second alert fill
+// Step 3: Add hour and minute tick marks
 registerSketch('sk3', function (p) {
   let startMillis;
 
@@ -14,28 +14,40 @@ registerSketch('sk3', function (p) {
     p.background(244, 236, 222);
     p.translate(p.width / 2, p.height / 2);
 
-
     let elapsedSeconds = (p.millis() - startMillis) / 1000;
     let secondsIntoCard = elapsedSeconds % 60;
     let secondsLeft = 60 - secondsIntoCard;
     let alert = secondsLeft <= 10;
 
-    let outerStroke = alert ? p.color(255, 50, 50) : p.color(180, 150, 110, 80);
-    let fillColor = alert ? p.color(255, 150, 150, 100) : p.color(0, 0, 0, 0);
-
-    // outer fill (pulses red when alert)
-    p.fill(fillColor);
-    p.noStroke();
-    p.ellipse(0, 0, 450);
-
-    // outer circle stroke
     p.noFill();
-    p.stroke(outerStroke);
+    p.stroke(alert ? p.color(255, 50, 50) : p.color(180, 150, 110, 80));
     p.strokeWeight(3);
     p.ellipse(0, 0, 450);
+
+    p.stroke(150, 120, 90);
+    p.strokeWeight(4);
+    let tickRadius = 210;
+    for (let i = 0; i < 12; i++) {
+      let angle = p.map(i, 0, 12, 0, 360) - 90;
+      let x1 = p.cos(angle) * (tickRadius - 15);
+      let y1 = p.sin(angle) * (tickRadius - 15);
+      let x2 = p.cos(angle) * tickRadius;
+      let y2 = p.sin(angle) * tickRadius;
+      p.line(x1, y1, x2, y2);
+    }
+
+    p.strokeWeight(1);
+    for (let i = 0; i < 60; i++) {
+      if (i % 5 !== 0) {
+        let angle = p.map(i, 0, 60, 0, 360) - 90;
+        let x1 = p.cos(angle) * (tickRadius - 10);
+        let y1 = p.sin(angle) * (tickRadius - 10);
+        let x2 = p.cos(angle) * tickRadius;
+        let y2 = p.sin(angle) * tickRadius;
+        p.line(x1, y1, x2, y2);
+      }
+    }
   };
 
-  p.windowResized = function () {
-    p.resizeCanvas(p.windowWidth, p.windowHeight);
-  };
+  p.windowResized = function () { p.resizeCanvas(p.windowWidth, p.windowHeight); };
 });
