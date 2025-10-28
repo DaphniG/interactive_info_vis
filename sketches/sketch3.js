@@ -88,6 +88,25 @@ registerSketch('sk3', function (p) {
       p.pop();
     }
 
+    elapsedSeconds = (p.millis() - startMillis) / 1000;
+    let currentCard = Math.floor(elapsedSeconds / 60) % 12;
+
+    // draw card
+    p.noStroke();
+    p.fill(255, 250, 240);
+    p.rect(0, 0, 160, 90, 12);
+
+    p.fill(90, 70, 40);
+    p.textSize(20);
+    p.text("Card " + (currentCard + 1), 0, -8);
+    p.textSize(14);
+    p.text(subjects[p.hour() % 12], 0, 15);
+
+    // subtle shadow
+    p.noStroke();
+    p.fill(0, 0, 0, 20);
+    p.rect(2, 2, 160, 90, 12);
+
 
   };
 
