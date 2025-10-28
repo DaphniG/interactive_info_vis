@@ -62,7 +62,7 @@ registerSketch('sk4', function (p) {
       p.ellipse(0, f.petalLength / 2, f.petalWidth, f.petalLength);
       p.pop();
     }
-    p.ellipse(0, 0, 8, 8); // center
+    p.ellipse(0, 0, 8, 8);
     p.pop();
   }
 
