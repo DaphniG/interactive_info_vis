@@ -4,8 +4,8 @@ This repository has been updated to develop and deliver Homework #4 for INTO 474
 
 This repo provides a tabbed gallery that lazy-loads p5 sketches (instance-mode) so you can organize multiple sketches in one page without them interfering.
 
-
 Files & layout
+
 - `index.html` — main page with tabs and per-tab containers.
 - `script.js` — tab/sketch loader (lazy-loads scripts, attaches canvases, resizes on tab switches).
 - `sketches/sketch1.js`..`sketches/sketch11.js` — sketches in p5 instance mode, registered with the loader.
