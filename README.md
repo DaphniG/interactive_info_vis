@@ -17,4 +17,3 @@ Notes for instructors / contributors
 - Prefer instance-mode sketches (factory function receiving `p`) and register them with `registerSketch('skN', factory)` so the loader can manage them cleanly.
 - If you add sketches, update `SKETCH_SCRIPT_BY_ID` in `script.js` and add a corresponding tab/container in `index.html`.
 
-If you want, I can add a small development task runner or a one-command script to start a local server and automatically open the browser.
