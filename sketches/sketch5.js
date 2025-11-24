@@ -4,6 +4,7 @@ registerSketch('sk5', function (p) {
   let selectedCountry = null;
   let img;
   let yearSlider;
+  let yearLabel;
 
   let baseScale = 0.5;
   let contexts = [
@@ -11,7 +12,6 @@ registerSketch('sk5', function (p) {
     { name: 'Economic Context', color: [255, 165, 0] },
     { name: 'Legal Context', color: [255, 255, 0] },
     { name: 'Social Context', color: [0, 128, 0] },
-    { name: 'Safety', color: [0, 0, 255] }
   ];
   let availableYears = [2022, 2023, 2024, 2025];
 
@@ -33,9 +33,16 @@ registerSketch('sk5', function (p) {
     }
     dropdown.changed(() => selectedCountry = dropdown.value());
 
-    // Year slider
+    // ---- YEAR SLIDER LABEL (NEW & CLEAR) ----
+    yearLabel = p.createDiv('Select Year');
+    yearLabel.position(20, 70);
+    yearLabel.style('color', 'white');
+    yearLabel.style('font-size', '14px');
+    yearLabel.style('font-weight', 'bold');
+
+    // ---- YEAR SLIDER ----
     yearSlider = p.createSlider(0, availableYears.length - 1, availableYears.length - 1);
-    yearSlider.position(20, 80);
+    yearSlider.position(20, 95);
     yearSlider.style('width', '200px');
   };
 
@@ -175,12 +182,12 @@ registerSketch('sk5', function (p) {
     let boxY = screenY - screenH / 2 + 150;
     drawTopLowestBox(p, table, selectedYear, boxX, boxY);
 
-    // Year slider label
+    // ---- VISIBLE SLIDER YEAR DISPLAY (NEW) ----
     p.noStroke();
     p.fill(255);
-    p.textSize(12);
+    p.textSize(14);
     p.textAlign(p.LEFT, p.CENTER);
-    p.text(`Year: ${selectedYear}`, yearSlider.x + yearSlider.width + 10, yearSlider.y + 10);
+    p.text(`← ${selectedYear}`, yearSlider.x + yearSlider.width + 12, yearSlider.y + 10);
 
     // Gradient legend for overall Press Freedom
     drawScoreGradientLegend(p, centerX, centerY, maxRadius);
@@ -194,7 +201,6 @@ registerSketch('sk5', function (p) {
     let entryHeight = (boxHeight - 2 * padding - 30) / entryCount;
     let fontSizeBox = Math.min(14, entryHeight * 0.6);
 
-    // Box background
     p.push();
     p.fill(30, 220);
     p.stroke(255, 180);
@@ -208,7 +214,6 @@ registerSketch('sk5', function (p) {
     p.text(`Top & Lowest Countries ${selectedYear}`, x, y - boxHeight / 2 + padding);
     p.pop();
 
-    // Prepare scores
     let scores = [];
     for (let r = 0; r < table.getRowCount(); r++) {
       let rowScore = parseFloat(table.getString(r, `Score_${selectedYear}`));
@@ -219,7 +224,6 @@ registerSketch('sk5', function (p) {
     let top3 = scores.slice(0, 3);
     let bottom3 = scores.slice(scores.length - 3);
 
-    // Draw entries
     p.push();
     p.textSize(fontSizeBox);
     p.textAlign(p.LEFT, p.CENTER);
@@ -266,5 +270,7 @@ registerSketch('sk5', function (p) {
     p.pop();
   }
 
-  p.windowResized = function () { p.resizeCanvas(p.windowWidth, p.windowHeight); };
+  p.windowResized = function () {
+    p.resizeCanvas(p.windowWidth, p.windowHeight);
+  };
 });
